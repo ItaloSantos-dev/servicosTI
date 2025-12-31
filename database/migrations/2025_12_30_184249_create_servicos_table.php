@@ -24,8 +24,8 @@ return new class extends Migration
             $table->dateTime('cancellation_date')->nullable();
             $table->timestamps();
 
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->foreign('tipo_id')->references('id')->on('tipos_servicos')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('service_types')->onDelete('cascade');
         });
     }
 

@@ -1,0 +1,47 @@
+
+.liMenu{
+    font-weight: bold;
+}
+#btnMais{
+    background-image: linear-gradient(to right, rgb(255, 0, 0),orange, rgb(255, 83, 40));
+    background-size: 300% 100%;
+    animation: degradeToRight 3s infinite alternate;
+    
+}
+
+@keyframes degradeToRight {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.btnBottom{
+    background-size: 100% 300%;
+    animation: degradeToTop 1.5s infinite alternate;
+}
+@keyframes degradeToTop {
+    0% {
+        background-position: 50% 100%;
+    }
+    100% {
+        background-position: 50% 0%;
+    }
+}
+
+#vetorNote{
+    height: 200px;
+    animation: scaleVetorNote 2.5s infinite alternate;
+
+}
+@keyframes scaleVetorNote {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.07);
+
+    }
+}
