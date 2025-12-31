@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('credential',8);
-            $table->enum('role', ['comum', 'admin']);
+            $table->enum('role', ['common', 'admin']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

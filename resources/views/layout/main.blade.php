@@ -6,6 +6,7 @@
         <title>@yield('title')</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
         @yield('head')
     </head>
     <body>
@@ -25,5 +26,7 @@
         </header>
         @yield('content')
         <footer></footer>
+        <script src="https://unpkg.com/imask"></script>
+        @yield('scripts')
     </body>
 </html>
