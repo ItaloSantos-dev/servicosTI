@@ -23,6 +23,16 @@ class Order extends Model
     public function TypeOrder(){
         return $this->belongsTo(OrderTypes::class,'type_id');
     }
+
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+
+    public function clientName(){
+        return $this->belongsTo(Client::class);
+    }
+
+    
     //sempre order_date 
     //se agendado retornar ...+ scheduling_date
     // se completo ...+ scheduling_date + completed_date

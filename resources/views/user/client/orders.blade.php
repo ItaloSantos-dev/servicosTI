@@ -23,7 +23,8 @@
 
             <div class="flex justify-beetwen items-center mb-3 ">
                 <h1 class="font-bold text-black text-3xl text-center">Pedidos</h1>
-                <a href="/orders/create" class= "ml-auto bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all  duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5">
+
+                <a href="{{route('client.orders.create')}}"  class= "ml-auto bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all  duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5">
                     Novo Pedido
                 </a>
             </div>
@@ -263,7 +264,7 @@
             console.log(id);
             
             
-            window.location.href = `/order/${id}`;
+            window.location.href = `/client/orders/${id}`;
 
         }
 

@@ -5,7 +5,7 @@ use App\Models\Order;
 
 class UpdateOrder{
     public function execute($id, $data){
-        $order = Order::find($id);
+        $order = Order::findOrFail($id);
         $order->type_id = $data ['type_id'];
         $order->description = $data ['description'];
         $order->address = $data ['address'];

@@ -8,8 +8,17 @@ class Employee extends Model
 {
     protected $fillable = ['user_id'];
 
-    public function roleNumber(){
-        if($this->tipo=='common') return 0;
-        if($this->tipo=='admin') return 1;
+    public function orders(){
+        return $this->belongsToMany(Order::class)->orderBy('order_date','desc');
     }
+
+    public function ordersCompleted(){
+        return $this->belongsToMany(Order::class)->where('status', 'completed');
+    }
+
+    public function ordersScheduled(){
+        return $this->belongsToMany(Order::class)->where('status', 'scheduled');
+    }
+
+
 }

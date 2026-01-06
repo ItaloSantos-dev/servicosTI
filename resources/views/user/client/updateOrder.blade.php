@@ -49,12 +49,12 @@
 
                 <div class="relative mb-8">
                     <h1 class="text-center font-bold text-purple-700 text-3xl">
-                        EDITAR PEDIDO #{{$order->id}}
+                        EDITAR PEDIDO {{$order->id}}
                     </h1>
 
                     <button class="absolute right-0 top-1/2 -translate-y-1/2 ml-auto bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-red-400 border-2 border-purple-300 hover:border-purple-500 transition-all  duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5"
                         id="btnCancelarPedido"
-                        data-route="{{ route('order.destroy', $order->id)}}"
+                        data-route="{{ route('client.orders.destroy', $order->id)}}"
                         data-method="DELETE"
                         data-show=true
                         
@@ -63,7 +63,7 @@
                     </button>
                 </div>
 
-                <form id="formUpdate" action="{{route('order.update', $order->id)}}" method="post">
+                <form id="formUpdate" action="{{route('client.orders.update', $order->id)}}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="flex flex-col gap-6">
@@ -114,7 +114,7 @@
                                 class="px-6 py-3 bg-purple-600 text-white font-semibold rounded-[20px] shadow-lg hover:bg-purple-700 transition-colors"
                                 type="button"
                                 id="btnConfirmarEdicao"
-                                data-route="{{ route('order.update', $order->id)}}"
+                                data-route="{{ route('client.orders.update', $order->id)}}"
                                 data-method="PUT"
                                 data-show=false
                             >

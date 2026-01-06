@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderTypes;
 use App\Models\User;
@@ -27,10 +28,16 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function indexOrdersOfClient(Request $request)
     {
         $clientWithOrders = $request->user()->load('client.orders.TypeOrder');
         return view('user.client.orders', compact('clientWithOrders'));
+    }
+
+    public function indexOrdersOfEmployee(Request $request){
+        $employeeWithOrders = $employeeLoged = $request->user()->load('employee.orders');
+        return view('user.employee.orders', compact('employeeWithOrders'));
+
     }
 
     /**
@@ -72,9 +79,10 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showForEmployee(string $id)
     {
-        
+        $order = Order::with('client.user:id,name','typeOrder')->findOrFail($id);
+        return view('user.employee.order', compact('order'));
     }
 
     /**
@@ -82,7 +90,7 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        $order = Order::with('TypeOrder')->find($id);
+        $order = Order::with('TypeOrder')->findOrFail($id);
         $orderTypes = OrderTypes::all();
         return view('user.client.updateOrder', compact('order', 'orderTypes'));
     }

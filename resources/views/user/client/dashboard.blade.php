@@ -58,7 +58,7 @@
                         </h2>
 
                         <div class="ml-auto">
-                            <a href="/orders" class="bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5" >Ver pedidos</a>
+                            <a href="{{ route('client.orders') }}" class="bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5" >Ver pedidos</a>
                         </div>
                     </div>
 

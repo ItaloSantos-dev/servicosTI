@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -15,20 +16,47 @@ Route::post('/register',[AuthController::class, 'Register'])->name('register');
 Route::get('/login',[AuthController::class, 'ShowLoginForms'])->name('loginForms');
 Route::post('/login',[AuthController::class, 'Login'])->name('login');
 
-Route::post('/logout', [AuthController::class,'Logout'])->name('logout');
 Route::get('/dashboard', [UserController::class, 'DashBoard'])->middleware('auth')->name('user.dashboard');
 
-Route::get('/orders', [OrderController::class, 'index'])->middleware('auth')->name('client.orders');
-
-Route::get('/order/{id}', [OrderController::class, 'edit'])->middleware('auth')->name('order.show');
-Route::put('/order/{id}',[OrderController::class, 'update'])->middleware('auth')->name('order.update');
-Route::delete('/order/{id}',[OrderController::class, 'destroy'])->middleware('auth')->name('order.destroy');
+Route::post('/logout', [AuthController::class,'Logout'])->middleware('auth')->name('logout');
 
 
+Route::middleware(['auth', 'role:0'])->prefix('client')->group(function(){
+    
+    
+    Route::get('/dashboard', [ClientController::class, 'DashBoard'])->name('client.dashboard');
 
-Route::get('/orders/create', [OrderController::class, 'create'])->middleware('auth')->name('order.create');
+    Route::get('/orders', [OrderController::class, 'indexOrdersOfClient'])->name('client.orders');
 
-Route::post('/orders/create', [OrderController::class, 'store'])->middleware('auth')->name('order.store');
+    Route::get('/orders/create', [OrderController::class, 'create'])->name('client.orders.create');
+
+    Route::post('/orders/create', [OrderController::class, 'store'])->name('client.orders.store');
+
+    Route::get('/orders/{id}', [OrderController::class, 'edit'])->name('client.orders.edit');
+
+    Route::put('/orders/{id}',[OrderController::class, 'update'])->name('client.orders.update');
+
+    Route::delete('/orders/{id}',[OrderController::class, 'destroy'])->name('client.orders.destroy');
+
+});
+
+Route::middleware(['auth', 'role:1'])->prefix('employee')->group(function(){
+
+    Route::get('/dashboard', [EmployeeController::class, 'DashBoard'])->name('employee.dashboard');
+    Route::get('/orders', [OrderController::class, 'indexOrdersOfEmployee'])->name('employee.orders');
+    Route::get('/orders/{id}', [OrderController::class, 'showForEmployee'])->name('employee.orders.show');
+
+
+
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('telephone','11')->unique();
             $table->date('date_birth');
 
-            $table->enum('role',['employe', 'client'])->default('client');
+            $table->enum('role',[0,1,2])->default(0);//0:client, 1:funcionario, 2:admin
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

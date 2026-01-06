@@ -13,4 +13,8 @@ class Client extends Model
     public function orders(){
         return $this->hasMany(Order::class)->orderBy('order_date','desc');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

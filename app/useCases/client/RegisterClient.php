@@ -9,7 +9,7 @@ class RegisterClient
     public function execute(array $data): void
     {
         $data['telephone'] = preg_replace('/\D/', '', $data['telephone']);
-        $data['role'] = 'client';
+        $data['role'] = '0';
         $data['cpf'] = preg_replace('/\D/', '', $data['cpf']);
         $novoUsuario = User::create($data);
         Client::create(['user_id' => $novoUsuario->id]);

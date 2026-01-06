@@ -11,20 +11,18 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function DashBoard(Request $request){
-        $userRoler = $request->user()->roleNumber();
-        if($userRoler==0){
-            $clientLoged = $request->user()->with('client.orders')->first();
-            return view('user.client.dashboard', compact('clientLoged'));
-        }
-        else{
-            $employeeLoged = Employee::where('user_id',$request->user()->id);
-            $employeeRoler = $employeeLoged->roleNumber();
-            if($employeeRoler == 0){
-                //retornar dash funcionario comum
-            }
-            else{
-                
-            }
+        $roleUser = $request->user()->role;
+        switch ($roleUser) {
+            case '0':
+                return redirect()->route('client.dashboard');
+                break;
+            case '1':
+                return redirect()->route('employee.dashboard');
+
+                break;
+            default:
+                # code...
+                break;
         }
     }
     /**

@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\UseCases\Client\RegisterClient;
-use Exception;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
-{    
-    
+class EmployeeController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        //
     }
 
     public function DashBoard(Request $request){
-        $clientLoged = $request->user()->load('client.orders');
-        return view('user.client.dashboard', compact('clientLoged'));
+        $employeeLoged = $request->user()->load('employee.orders','employee.ordersCompleted', 'employee.ordersScheduled.TypeOrder');
+
+        $avgRating = $employeeLoged->employee->ordersCompleted()->avg('rating');
+
+        return view('user.employee.dashboard', compact('employeeLoged', 'avgRating'));
 
     }
 
@@ -28,6 +28,7 @@ class ClientController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -35,9 +36,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
-
 
     /**
      * Display the specified resource.

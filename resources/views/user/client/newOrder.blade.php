@@ -49,7 +49,7 @@
                     <h1 class="font-bold text-purple-700 text-3xl">NOVO PEDIDO</h1>
                 </div>
 
-                <form action="{{route('order.store')}}" method="post">
+                <form action="{{route('client.orders.store')}}" method="post">
                     @csrf
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col gap-2">
