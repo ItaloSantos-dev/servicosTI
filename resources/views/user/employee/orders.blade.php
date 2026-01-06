@@ -21,6 +21,9 @@
                                     <div class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase bg-green-200 text-green-900 border border-green-300 shadow-sm">
                                         {{$order->TypeOrder->name}}
                                     </div>
+                                    <div class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase bg-{{$order->statusColor()}}-200 text-{{$order->statusColor()}}-900 border border-green-300 shadow-sm">
+                                        {{$order->TranslateStatus()}}
+                                    </div>
                                 </div>
                                 <div class="text-base text-gray-800 leading-relaxed mb-3 bg-white/60 rounded-lg p-3 border border-purple-100">
                                     <span class="font-bold text-purple-700 mr-2">Descrição:</span> 

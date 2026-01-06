@@ -39,13 +39,13 @@
                                 <div class="text-base text-gray-700 mb-2">
                                     <span class="font-semibold text-purple-600">Descrição:</span> {{$order->description}}
                                 </div>
-                                <div class="px-4 py-2 rounded-[15px] text-sm font-semibold uppercase bg-purple-200 text-black inline-block">
+                                <div class="px-4 py-2 rounded-[15px] text-sm font-semibold uppercase bg-{{$order->statusColor()}}-200 text-black inline-block">
                                     {{$order->TranslateStatus()}}
                                 </div>
                             </div>
 
                             @if($order->TranslateStatus()=='AGENDADO')
-                            <div class="px-4 py-2 rounded-[15px] text-sm font-semibold uppercase bg-green-200 text-yellow-800 inline-block">
+                            <div class="px-4 py-2 rounded-[15px] text-sm font-semibold uppercase bg-blue-200 text-yellow-800 inline-block">
                                 {{$order->scheduling_date}}
                             </div>
                             @endif

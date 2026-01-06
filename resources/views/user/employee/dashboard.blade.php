@@ -81,7 +81,7 @@
                                 <div class="text-4xl font-bold text-yellow-700">{{number_format($avgRating, 1)??0}}</div>
                                 <div class="text-2xl text-yellow-500">★</div>
                             </div>
-                            <div class="text-xs text-yellow-500 mt-2">Baseado em 127 avaliações</div>
+                
                         </div>
                     
                     </div>
@@ -126,11 +126,12 @@
 
                                 
                             </div>
-                            <button 
+                            <a
+                            href="{{route('employee.orders.show', $order->id)}}"
                                 class="px-6 py-3 bg-linear-to-r from-purple-600 to-purple-700 text-white font-bold rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-200 whitespace-nowrap shadow-md hover:shadow-lg transform hover:scale-105"
                             >
                                 Ver Detalhes
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>

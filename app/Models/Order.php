@@ -32,6 +32,42 @@ class Order extends Model
         return $this->belongsTo(Client::class);
     }
 
+    protected $casts = [
+        'order_date' => 'datetime',
+        'scheduling_date' => 'datetime',
+        'completion_date' => 'datetime',
+        'cancellation_date' => 'datetime',
+
+    ];
+
+    public function ratingColor(){
+        if($this->rating<4){
+            return "red";
+        }
+        else if($this->rating<7){
+            return "yellow";
+        }
+        else{
+            return "green";
+        }
+    }
+
+    public function statusColor(){
+        if($this->status=='in_analysis'){
+            return "gray";
+        }
+        else if($this->status=='scheduled'){
+            return "blue";
+        }
+        else if($this->status=='completed'){
+            return "green";
+        }
+        else if($this->status=='canceled'){
+            return "red";
+        }
+    }
+
+
     
     //sempre order_date 
     //se agendado retornar ...+ scheduling_date
@@ -44,21 +80,26 @@ class Order extends Model
                 return 'EM ANÁLISE';//amarelo
                 break;
 
-            case 'scheduled':
+            case 'scheduled'://data do agendamento
                 return 'AGENDADO';//azul
                 break;
 
-            case 'completed':
+            case 'completed'://data do agendamento, data que foi concluido, rating
                 return 'CONCLUÍDO';//verde
                 break;
 
-            case 'canceled':
+            case 'canceled'://data do agendamento, data que foi cancelado, motivo
                 return 'CANCELADO';//vermelho
                 break;
 
             default:
                 return 'STATUS DESCONHECIDO';
+                break;
         }
+    }
+
+    public function dateFormating($data){
+        return $data->format('d/m/Y H:i');
     }
 
 }
