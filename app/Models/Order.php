@@ -28,6 +28,10 @@ class Order extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function employee(){
+        return $this->belongsToMany(Employee::class);
+    }
+
     public function clientName(){
         return $this->belongsTo(Client::class);
     }
@@ -100,6 +104,22 @@ class Order extends Model
 
     public function dateFormating($data){
         return $data->format('d/m/Y H:i');
+    }
+
+    public function dateDay($date){
+        return $date->format('d');
+    }
+
+    public function dateDayAndMonth($date){
+        return $date->format('d/m');
+    }
+
+    public function dateHour($date){
+        return $date->format('H:m');
+    }
+
+    public function scopeScheduledthisMonth($query){
+        return $query->where('status', 'scheduled')->whereBetween('scheduling_date', [now()->startOfMonth(),now()->endOfMonth()]);
     }
 
 }

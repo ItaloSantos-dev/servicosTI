@@ -20,6 +20,9 @@ class UserController extends Controller
                 return redirect()->route('employee.dashboard');
 
                 break;
+            case '2':
+                return redirect()->route('admin.dashboard');
+                break;
             default:
                 # code...
                 break;
