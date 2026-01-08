@@ -10,7 +10,6 @@
 <main class="min-h-screen bg-linear-to-br  py-8 px-4">
     
     <div class="max-w-7xl mx-auto">
-        <!-- Header com Gradiente -->
         <div class="bg-linear-to-r from-purple-600 to-indigo-600 rounded-3xl shadow-xl p-8 mb-8 relative overflow-hidden">
             <div class="absolute inset-0 bg-black opacity-10"></div>
             <div class="relative z-10">
@@ -75,14 +74,10 @@
                 <div class="flex justify-between items-center text-center mt-2"><a href="" class="text-center p-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors cursor-pointer hover:shadow-2xl ">Ver todos agendados</a></div>
             </div>
         </div>
-        <!-- Cards de Estatísticas -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Card Usuários Ativos -->
             <div class="stat-card glass-effect rounded-2xl shadow-soft p-6 hover-glow relative overflow-hidden">
-                <!-- camada de blur -->
                 <div class="absolute inset-0 bg-white/10 backdrop-blur-2xl"></div>
 
-                <!-- conteúdo -->
                 <div class="relative z-10">
                     <div class="flex items-center mb-6">
                         <div class="bg-linear-to-r from-purple-500/40 to-indigo-500/40 p-3 rounded-xl mr-4">
@@ -124,22 +119,22 @@
 
                 <div class="space-y-3">
 
-                    <a class="w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
+                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
                         <i class="fa-solid fa-plus w-5 mr-3"></i>
                         Novo pedido
                     </a>
 
-                    <a class="w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
+                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
                         <i class="fa-solid fa-user-plus w-5 mr-3"></i>
                         Adicionar Cliente
                     </a>
 
-                    <a class="w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
+                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
                         <i class="fa-solid fa-user-tie w-5 mr-3"></i>
                         Adicionar funcionário
                     </a>
 
-                    <a class="w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
+                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
                         <i class="fa-solid fa-clipboard-user w-5 mr-3"></i>
                         Designar Funcionário para pedido
                     </a>
@@ -147,7 +142,6 @@
                 </div>
             </div> 
         </div>
-        <!-- Métricas com Grid Moderno -->
         <div class="bg-white rounded-3xl shadow-soft p-6 mb-8">
             <div class="flex items-center justify-between mb-8">
                 <div>
@@ -160,7 +154,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Concluídos -->
                 <a class="stat-card bg-linear-to-b from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100 hover:border-green-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -173,7 +166,6 @@
                     </div>
                 </a>
 
-                <!-- Agendados -->
                 <a class="stat-card bg-linear-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100 hover:border-blue-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -186,7 +178,6 @@
                     </div>
                 </a>
 
-                <!-- Cancelados -->
                 <a class="stat-card bg-linear-to-br from-red-50 to-rose-50 rounded-2xl p-6 border border-red-100 hover:border-red-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -199,7 +190,6 @@
                     </div>
                 </a>
 
-                <!-- Em Análise -->
                 <a class="stat-card bg-linear-to-br from-yellow-50 to-amber-50 rounded-2xl p-6 border border-yellow-100 hover:border-yellow-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -212,7 +202,6 @@
                     </div>
                 </a>
 
-                <!-- Rating -->
                 <div class="stat-card bg-linear-to-br from-purple-50 to-violet-50 rounded-2xl p-6 border border-purple-100 hover:border-purple-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -225,8 +214,7 @@
                     </div>
                 </div>
 
-                <!-- Total Geral -->
-                <a class="stat-card bg-linear-to-br from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-100 hover:border-gray-200">
+                <a href="{{route('admin.orders')}}" class="stat-card bg-linear-to-br from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-100 hover:border-gray-200">
                     <div class="flex items-start justify-between mb-4">
                         <div>
                             <div class="text-sm font-semibold text-gray-600 uppercase tracking-wider mb-1">Total de Serviços</div>

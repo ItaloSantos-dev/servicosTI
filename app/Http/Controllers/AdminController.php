@@ -14,7 +14,7 @@ class AdminController extends Controller
 
         $clients = User::whereHas('client.orders')->get();
         $employee = User::whereHas('employee.orders')->get();
-        $orders = Order::with('TypeOrder','employee','client')->get();
+        $orders = Order::with('TypeOrder','employees','client')->get();
         $ordersCurrentMonth = Order::scheduledthisMonth()->with('client.user')->get();
         $ordersCount=[
             'in_analysis' => Order::where('status', 'in_analysis')->count(),

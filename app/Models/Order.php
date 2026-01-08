@@ -28,7 +28,7 @@ class Order extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function employee(){
+    public function employees(){
         return $this->belongsToMany(Employee::class);
     }
 

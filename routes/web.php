@@ -41,6 +41,9 @@ Route::middleware(['auth', 'role:1'])->prefix('employee')->group(function(){
 
 Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'DashBoard'])->name('admin.dashboard');
+    Route::get('/orders', [OrderController::class, 'indexOrdersOfAdmin'])->name('admin.orders');
+    Route::get('/orders/{id}', [OrderController::class, 'showForAdmin'])->name('admin.orders.show');
+
 });
 
 

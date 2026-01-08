@@ -28,14 +28,29 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function indexOrdersOfAdmin(){
+        $ordersCount=[
+            'in_analysis' => Order::where('status', 'in_analysis')->count(),
+            'scheduled' => Order::where('status', 'scheduled')->count(),
+            'completed' => Order::where('status', 'completed')->count(),
+            'canceled' => Order::where('status', 'canceled')->count(),
+        ];
+        $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->get();
+        return view('user.admin.orders', compact('orders','ordersCount'));
+    }
     public function indexOrdersOfClient(Request $request)
     {
         $clientWithOrders = $request->user()->load('client.orders.TypeOrder');
         return view('user.client.orders', compact('clientWithOrders'));
     }
 
+    public function showForAdmin($id){
+        $order = Order::with('client.user', 'employees.user', 'TypeOrder')->find($id);
+        return view('user.admin.order', compact('order'));
+    }
+
     public function indexOrdersOfEmployee(Request $request){
-        $employeeWithOrders = $employeeLoged = $request->user()->load('employee.orders');
+        $employeeWithOrders = $employeeLoged = $request->user()->load('employees.orders');
         return view('user.employee.orders', compact('employeeWithOrders'));
 
     }
