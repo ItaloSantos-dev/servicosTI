@@ -42,7 +42,7 @@ class OrderController extends Controller
             'completed' => Order::where('status', 'completed')->count(),
             'canceled' => Order::where('status', 'canceled')->count(),
         ];
-        $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->get();
+        $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->paginate(10);
         return view('user.admin.orders', compact('orders','ordersCount'));
     }
 

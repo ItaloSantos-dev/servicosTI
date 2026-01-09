@@ -143,6 +143,11 @@
                 @endforelse
             </div>
         </div>
+        <div class="flex justify-center items-center bg-white/40 mt-2 rounded-2xl shadow-2xl mb-5 p-2">
+            <div class="backdrop-blur-2xl">
+                {{ $orders->links('pagination::simple-tailwind') }}
+            </div>
+        </div>
     </div>
 </main>
 @endsection
