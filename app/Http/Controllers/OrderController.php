@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderTypes;
 use App\Models\User;
+use App\useCases\admin\updateOrderAdmin;
 use App\useCases\order\CancellationOrder;
 use App\useCases\order\RegisterOrder;
 use App\useCases\order\UpdateOrder;
@@ -17,11 +18,13 @@ class OrderController extends Controller
 {
     private RegisterOrder $registerOrder;
     private UpdateOrder $updateOrder;
+    private updateOrderAdmin $updateOrderAdmin;
     private CancellationOrder $cancellationOrder;
 
     public function __construct() {
         $this->registerOrder = new RegisterOrder();
         $this->updateOrder = new UpdateOrder();
+        $this->updateOrderAdmin = new updateOrderAdmin();
         $this->cancellationOrder = new CancellationOrder();
         
     }                       
@@ -103,17 +106,24 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editOfClient(string $id)
     {
         $order = Order::with('TypeOrder')->findOrFail($id);
         $orderTypes = OrderTypes::all();
         return view('user.client.updateOrder', compact('order', 'orderTypes'));
     }
 
+    public function editOfAdmin(string $id){
+        $order = Order::with('TypeOrder', 'employees.user', 'client.user')->findOrFail($id);
+        $typeOrders = OrderTypes::all();
+        $employees = Employee::with('user')->get();
+        return view('user.admin.updateOrder', compact('order', 'typeOrders', 'employees'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function updateOfClient(Request $request, string $id)
     {
         $password = $request->validate(['password'=>'required']);
         
@@ -126,16 +136,37 @@ class OrderController extends Controller
             'address'=>'required|string'
         ]);
         if(!$this->updateOrder->execute($id, $credentials)){
-             redirect()->back()->with('info', 'falha ao editar pedido');
+            redirect()->back()->with('info', 'falha ao editar pedido');
         }
         return redirect()->route('client.orders');
 
     }
 
+    public function updateOfAdmin(Request $request, string $id){
+        
+        $credentials = $request->validate([
+            'password'=>'required',
+        ]);
+        if(!$request->user()->checkPassword($credentials['password'])){
+            return redirect()->back()->with('info', 'Senha incorreta');
+        }
+        $credentials = $request->validate([
+            'type_id'=>'required|numeric',
+            'description'=>'required|string',
+            'scheduling_date'=>'nullable',
+            'address'=>'required|string',
+            'employees'=>'required'
+        ]);
+        if(!$this->updateOrderAdmin->execute($id, $credentials)){
+            redirect()->back()->with('info', 'falha ao editar pedido');
+        }
+        return redirect()->route('admin.orders');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, string $id)
+    public function destroyOfClient(Request $request, string $id)
     {
         $credentials = $request->validate([
             'password'=>'required',
@@ -150,5 +181,20 @@ class OrderController extends Controller
         }        
         return redirect()->route('client.orders');
 
+    }
+
+    public function destroyOfAdmin(Request $request, string $id){
+        $credentials = $request->validate([
+            'password'=>'required',
+            'reason_for_cancellation'=>'required|string',
+        ]);
+        if(!$request->user()->checkPassword($credentials['password'])){
+            return redirect()->back()->with('info', 'Senha incorreta');
+        }
+        
+        if(!$this->cancellationOrder->execute($id, $credentials)){
+            return redirect()->back()->with('info', 'Falha ao cancelar pedido');
+        }        
+        return redirect()->route('admin.orders');
     }
 }

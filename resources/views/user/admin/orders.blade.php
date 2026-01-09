@@ -80,16 +80,16 @@
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Cliente</div>
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Tipo de Pedido</div>
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</div>
-                <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Data</div>
+                <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Data do pedido</div>
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Ações</div>
             </div>
             <div class="divide-y divide-gray-200 bg-white/50">
                 @forelse($orders as $order)
                     <div class="hover:bg-gray-50 transition-colors duration-350 backdrop-blur-2xl ">   
                         <div class="hidden md:grid md:grid-cols-6 gap-4 px-6 py-4 items-center">                        
-                            <a href="{{route('admin.orders.show', $order->id)}}" class="text-sm font-medium text-gray-900 font-mono hover:scale-105 transition-all">
+                            <div  class="text-sm font-medium text-gray-900 font-mono hover:scale-105 transition-all">
                                 #{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
-                            </a>
+                            </div >
                             
                             <div class="flex items-center">
                                 <div class="shrink-0 h-10 w-10">
@@ -120,13 +120,13 @@
                                 </span>
                             </div>
                             <div>
-                                <div class="text-sm text-gray-900">{{($order->created_at)->format('d/m/Y') }}</div>
-                                <div class="text-sm text-gray-500">{{ ($order->created_at)->format('H:i') }}</div>
+                                <div class="text-sm text-gray-900">{{($order->order_date)->format('d/m/Y') }}</div>
+                                <div class="text-sm text-gray-500">{{ ($order->order_date)->format('H:i') }}</div>
                             </div>
                             <form class="flex space-x-2">
-                                <button href="#" class="text-yellow-500 hover:text-yellow-900 transition-colors duration-200 cursor-pointer">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                <a href="{{route('admin.orders.show', $order->id)}}" class="text-blue-500 hover:text-blue-900 transition-colors duration-200 cursor-pointer">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </form>
                         </div>
                     </div>

@@ -33,15 +33,12 @@
                     </div>
                     
                     @if(in_array($order->status, ['in_analysis', 'scheduled']))
-                    <form  method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" 
-                                class="bg-linear-to-r from-red-500 to-red-600 text-white px-6 py-2.5 rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-200 font-semibold flex items-center gap-2">
-                            <i class="fas fa-times-circle"></i>
-                            Cancelar Pedido
-                        </button>
-                    </form>
+                        <a
+                                href="{{route('admin.orders.edit', $order->id)}}"
+                                class="bg-linear-to-r from-yellow-500 to-yellow-600  text-white px-6 py-2.5 rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 font-semibold flex items-center gap-2 cursor-pointer">
+                            <i class="fas fa-edit"></i>
+                            Editar Pedido
+                        </a>
                     @endif
                 </div>
             </div>

@@ -27,9 +27,9 @@ Route::middleware(['auth', 'role:0'])->prefix('client')->group(function(){
     Route::get('/orders', [OrderController::class, 'indexOrdersOfClient'])->name('client.orders');
     Route::get('/orders/create', [OrderController::class, 'create'])->name('client.orders.create');
     Route::post('/orders/create', [OrderController::class, 'store'])->name('client.orders.store');
-    Route::get('/orders/{id}', [OrderController::class, 'edit'])->name('client.orders.edit');
-    Route::put('/orders/{id}',[OrderController::class, 'update'])->name('client.orders.update');
-    Route::delete('/orders/{id}',[OrderController::class, 'destroy'])->name('client.orders.destroy');
+    Route::get('/orders/{id}', [OrderController::class, 'editOfClient'])->name('client.orders.edit');
+    Route::put('/orders/{id}',[OrderController::class, 'updateOfClient'])->name('client.orders.update');
+    Route::delete('/orders/{id}',[OrderController::class, 'destroyOfClient'])->name('client.orders.destroy');
 
 });
 
@@ -43,6 +43,11 @@ Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'DashBoard'])->name('admin.dashboard');
     Route::get('/orders', [OrderController::class, 'indexOrdersOfAdmin'])->name('admin.orders');
     Route::get('/orders/{id}', [OrderController::class, 'showForAdmin'])->name('admin.orders.show');
+    Route::get('/orders/edit/{id}', [OrderController::class, 'editOfAdmin'])->name('admin.orders.edit');
+    Route::put('/orders/${id}', [OrderController::class, 'updateOfAdmin'])->name('admin.orders.update');
+    Route::delete('/orders/${id}', [OrderController::class, 'destroyOfAdmin'])->name('admin.orders.destroy');
+
+
 
 });
 
