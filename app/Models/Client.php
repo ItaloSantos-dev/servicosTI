@@ -11,7 +11,7 @@ class Client extends Model
     ];
 
     public function orders(){
-        return $this->hasMany(Order::class)->orderBy('order_date','desc');
+        return $this->hasMany(Order::class);
     }
 
     public function user(){

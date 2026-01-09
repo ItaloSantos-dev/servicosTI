@@ -15,7 +15,7 @@
 
  </style>
 @endsection
-   
+
 @section('content')
 <main>
     <div class="max-w-6xl mx-auto p-8">
@@ -31,7 +31,7 @@
 
 <!-- bg-purple-100 rounded-lg p-4 border border-purple-200 cursor-pointer transition-all duration-300 hover:bg-purple-200 hover:shadow-lg hover:scale-105 hover:border-purple-400 transform -->
             <div class="overflow-scroll lg:max-h-[65vh] p-8 ">
-                @foreach($clientWithOrders->client->orders as $order)
+                @foreach($orders as $order)
                     <div class="bg-white rounded-[20px] p-6 mb-6 shadow-lg border  transition-all duration-300 hover:bg-purple-200 hover:shadow-lg hover:scale-105 hover:border-purple-400 transform  border-purple-200 " >
                         <div class="flex justify-between items-center">
                             <div class="">
@@ -75,34 +75,32 @@
                         @if($order->TranslateStatus()=='CONCLUÍDO')
                             <div id="completionDateValue{{$order->id}}">{{$order->completion_date}}</div>
                         @endif
-                        
+
                         @if($order->TranslateStatus()=='CANCELADO')
                             <div id="cancellationDateValue{{$order->id}}">{{$order->cancellation_date}}</div>
                             <div id="cancellationReason{{$order->id}}">{{$order->reason_for_cancellation}}</div>
                         @endif
-
-
-                        
-                        
-                        
-
                     </div>
                 @endforeach
+                <div class="flex justify-center items-center">
+                    {{ $orders->links('pagination::simple-tailwind') }}
+                </div>
             </div>
+
         </div>
 
 
-        
+
     </div>
 
     <!-- Overlay com Blur -->
     <div id="order-overlay" class="fixed inset-0 bg-black/50 bg-opacity-60 backdrop-blur-md z-50  hidden items-center justify-center p-4">
 
         <div class="bg-white rounded-[20px] p-8 shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            
+
             <div class="flex justify-between items-center mb-8">
                 <h2 id="orderId" class="text-3xl font-semibold text-purple-700">Detalhes do Pedido #1</h2>
-                <button 
+                <button
                     onclick="hideOrderDetails()"
                     class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors"
                 >
@@ -119,39 +117,39 @@
                         <span class="text-sm font-bold text-purple-600">Tipo</span>
                         <div id="detailTypeOrder" class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg"></div>
                     </div>
-                    
+
                     <div class="flex flex-col gap-2">
                         <span class="text-sm font-bold text-purple-600">Descrição</span>
                         <div id="detailDescOrder" class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg "></div>
                     </div>
-                    
+
                     <div class="flex flex-col gap-2">
                         <span class="text-sm font-bold text-purple-600">Endereço</span>
                         <div id="detailAddressOrder" class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg"></div>
                     </div>
                 </div>
-                
+
                 <div class="flex gap-20 justify-center items-center">
                     <div class="flex flex-col gap-2">
                         <span class="text-sm font-bold text-purple-600">Status</span>
                         <div id="detailStatusOrder" class="px-4 py-2 rounded-[15px] text-sm font-semibold uppercase bg-yellow-100 text-yellow-800 inline-block w-fit"></div>
                     </div>
-                    
+
                     <div class="flex flex-col gap-2">
                         <span class="text-sm font-bold text-purple-600">Data do Pedido</span>
                         <div id="detailOrderDateOrder" class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg"></div>
                     </div>
-                    
+
                     <div id="schedulingDate" class="flex flex-col gap-2 hidden">
                         <span class="text-sm font-bold text-purple-600">Data de Agendamento</span>
                         <div id="detailSchedulingDate" class="text-base text-purple-400 italic p-4 bg-purple-50 rounded-lg">Não agendado</div>
                     </div>
-                    
+
                     <div id="completionDate" class="flex flex-col gap-2 hidden">
                         <span class="text-sm font-bold text-purple-600">Data de Conclusão</span>
                         <div id="detailCompletionDateValue" class="text-base text-purple-400 italic p-4 bg-purple-50 rounded-lg">Não concluído</div>
                     </div>
-                    
+
                     <div id="cancellationDate" class="flex flex-col gap-2 hidden">
                         <span class="text-sm font-bold text-purple-600">Data de Cancelamento</span>
                         <div id="detailCancellationDateValue" class="text-base text-purple-400 italic p-4 bg-purple-50 rounded-lg">Não cancelado</div>
@@ -175,7 +173,7 @@
     </div>
 </main>
 
-@section('scripts') 
+@section('scripts')
     <script>
         function showOrderDetails(orderId) {
             CopyDetails(orderId)
@@ -204,7 +202,7 @@
             const scheduledValue = document.getElementById('schedulingDateValue'+orderId);
             if(scheduledValue){
                 document.getElementById('schedulingDate').classList.remove('hidden');
-                document.getElementById('detailSchedulingDate').innerText = scheduledValue.textContent;    
+                document.getElementById('detailSchedulingDate').innerText = scheduledValue.textContent;
             }
             else{
                 document.getElementById('schedulingDate').classList.add('hidden');
@@ -217,17 +215,17 @@
             }
             else{
                 document.getElementById('completionDate').classList.add('hidden');
-                
+
             }
 
             const cancelationValue = document.getElementById('cancellationDateValue'+orderId);
             if(cancelationValue){
                 document.getElementById('cancellationDate').classList.remove('hidden');
                 document.getElementById('detailCancellationDateValue').innerText=cancelationValue.textContent;
-                
+
                 document.getElementById('cancellationReason').classList.remove('hidden');
                 document.getElementById('detailCancellationReasonValue').innerText=document.getElementById('cancellationReason'+orderId).textContent;
-                
+
             }
             else{
                 document.getElementById('cancellationDate').classList.add('hidden');
@@ -259,11 +257,11 @@
         });
 
         function AcessarRota(){
-            
+
             const id = document.getElementById('detailOrderId').textContent;
             console.log(id);
-            
-            
+
+
             window.location.href = `/client/orders/${id}`;
 
         }

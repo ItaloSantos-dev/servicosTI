@@ -8,7 +8,7 @@
 
 @section('content')
 <main class="min-h-screen bg-linear-to-br  py-8 px-4">
-    
+
     <div class="max-w-7xl mx-auto">
         <div class="bg-linear-to-r from-purple-600 to-indigo-600 rounded-3xl shadow-xl p-8 mb-8 relative overflow-hidden">
             <div class="absolute inset-0 bg-black opacity-10"></div>
@@ -37,7 +37,7 @@
                     <a  class="block">
                         <div class="order-card bg-linear-to-r from-gray-50 to-white rounded-xl p-4 border border-gray-200 hover:border-purple-300">
                             <div class="flex items-center justify-between">
-                                
+
                                 <div>
                                     <div class="flex items-center mb-1">
                                         <div class="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
@@ -54,11 +54,10 @@
                                     </div>
                                 </div>
 
-                                <a href="" class="bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5">
+                                <a href="{{route('admin.orders.show', $order->id)}}" class="bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-purple-100 border-2 border-purple-300 hover:border-purple-500 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5">
                                     Ver mais
                                 </a>
-                            
-                                
+
                             </div>
                         </div>
                     </a>
@@ -91,7 +90,7 @@
                     </div>
 
                     <div class="space-y-4">
-                        
+
                         <a href="" class="flex items-center justify-between p-4  bg-white/50 rounded-xl   border border-purple-200 cursor-pointer transition-all duration-300 hover:bg-purple-200 hover:shadow-lg hover:scale-105 hover:border-purple-400 transform">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
@@ -119,7 +118,7 @@
 
                 <div class="space-y-3">
 
-                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
+                    <a href="{{route('admin.orders.create')}}" class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
                         <i class="fa-solid fa-plus w-5 mr-3"></i>
                         Novo pedido
                     </a>
@@ -134,13 +133,8 @@
                         Adicionar funcionário
                     </a>
 
-                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
-                        <i class="fa-solid fa-clipboard-user w-5 mr-3"></i>
-                        Designar Funcionário para pedido
-                    </a>
-
                 </div>
-            </div> 
+            </div>
         </div>
         <div class="bg-white rounded-3xl shadow-soft p-6 mb-8">
             <div class="flex items-center justify-between mb-8">

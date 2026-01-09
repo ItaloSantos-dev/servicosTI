@@ -9,7 +9,7 @@ class Employee extends Model
     protected $fillable = ['user_id'];
 
     public function orders(){
-        return $this->belongsToMany(Order::class)->orderBy('order_date','desc');
+        return $this->belongsToMany(Order::class);
     }
 
     public function user(){

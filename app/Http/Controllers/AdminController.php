@@ -12,10 +12,10 @@ class AdminController extends Controller
 {
     public function DashBoard(){
 
-        $clients = User::whereHas('client.orders')->get();
-        $employee = User::whereHas('employee.orders')->get();
+        $clients = User::whereHas('client')->get();
+        $employee = User::whereHas('employee')->get();
         $orders = Order::with('TypeOrder','employees','client')->get();
-        $ordersCurrentMonth = Order::scheduledthisMonth()->with('client.user')->get();
+        $ordersCurrentMonth = Order::ScheduledthisMonth()->with('client.user')->limit(5)->get();
         $ordersCount=[
             'in_analysis' => Order::where('status', 'in_analysis')->count(),
             'scheduled' => Order::where('status', 'scheduled')->count(),

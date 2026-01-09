@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -15,11 +16,12 @@ class EmployeeController extends Controller
     }
 
     public function DashBoard(Request $request){
-        $employeeLoged = $request->user()->load('employee.orders','employee.ordersCompleted', 'employee.ordersScheduled.TypeOrder');
-
+        $employeeLoged = $request->user()->load('employee');
+        $ordersCompletedCount = $employeeLoged->employee->ordersCompleted()->count();
+        $ordersScheduled = $employeeLoged->employee->ordersScheduled()->paginate(10);
         $avgRating = $employeeLoged->employee->ordersCompleted()->avg('rating');
 
-        return view('user.employee.dashboard', compact('employeeLoged', 'avgRating'));
+        return view('user.employee.dashboard', compact('employeeLoged', 'ordersCompletedCount','avgRating', 'ordersScheduled'));
 
     }
 

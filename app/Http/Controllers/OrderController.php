@@ -42,15 +42,16 @@ class OrderController extends Controller
             'completed' => Order::where('status', 'completed')->count(),
             'canceled' => Order::where('status', 'canceled')->count(),
         ];
-        $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->paginate(10);
+        $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->orderBy('order_date', 'desc')->paginate(10);
         return view('user.admin.orders', compact('orders','ordersCount'));
     }
 
 
     public function indexOrdersOfClient(Request $request)
     {
-        $clientWithOrders = $request->user()->load('client.orders.TypeOrder');
-        return view('user.client.orders', compact('clientWithOrders'));
+        $user = $request->user()->load(['client']);
+        $orders = $user->client->orders()->orderBy('order_date', 'desc')->with('TypeOrder')->paginate(10);
+        return view('user.client.orders', compact('user', 'orders'));
     }
 
     public function showForAdmin($id){
@@ -59,8 +60,9 @@ class OrderController extends Controller
     }
 
     public function indexOrdersOfEmployee(Request $request){
-        $employeeWithOrders = $employeeLoged = $request->user()->load('employees.orders');
-        return view('user.employee.orders', compact('employeeWithOrders'));
+        $employeeWithOrders = $request->user()->load('employee');
+        $orders = $employeeWithOrders->employee->orders()->orderBy('order_date', 'asc')->with('TypeOrder')->paginate(10);
+        return view('user.employee.orders', compact('orders'));
 
     }
 

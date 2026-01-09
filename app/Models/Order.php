@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = [  
+    protected $fillable = [
         'client_id',
         'type_id',
         'description',
@@ -72,8 +72,8 @@ class Order extends Model
     }
 
 
-    
-    //sempre order_date 
+
+    //sempre order_date
     //se agendado retornar ...+ scheduling_date
     // se completo ...+ scheduling_date + completed_date
     //se cancelado ...+ order_date
@@ -119,7 +119,7 @@ class Order extends Model
     }
 
     public function scopeScheduledthisMonth($query){
-        return $query->where('status', 'scheduled')->whereBetween('scheduling_date', [now()->startOfMonth(),now()->endOfMonth()]);
+        return $query->orderBy('scheduling_date', 'asc')->where('status', 'scheduled')->whereBetween('scheduling_date', [now()->startOfMonth(),now()->endOfMonth()]);
     }
 
 }
