@@ -4,7 +4,7 @@
 
 @section('content')
 <main class="">
-    <div class="container max-w-7xl mx-auto">        
+    <div class="container max-w-7xl mx-auto">
         <div class="bg-white/40  rounded-3xl shadow-lg p-8 mb-8 border border-gray-200">
             <div class="flex backdrop-blur-2xl flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
@@ -23,11 +23,13 @@
                         <option value="completed">Concluído</option>
                         <option value="cancelled">Cancelado</option>
                     </select>
-                    
-                    <button class="bg-linear-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-semibold flex items-center gap-2">
+
+                    <a
+                        href="{{route('admin.orders.create')}}"
+                        class="bg-linear-to-r from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 font-semibold flex items-center gap-2">
                         <i class="fas fa-plus"></i>
                         Novo Pedido
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
@@ -37,7 +39,7 @@
                     <div class="text-2xl font-bold text-gray-900">{{ $orders->count() }}</div>
                     <div class="text-sm text-gray-600">Pedidos</div>
                 </div>
-                
+
                 <div class="bg-linear-to-r from-green-50 to-green-100 rounded-2xl p-4 border border-green-200 hover:border-green-500">
                     <div class="text-sm text-green-600 font-semibold mb-1">Concluídos</div>
                     <div class="text-2xl font-bold text-gray-900">
@@ -45,7 +47,7 @@
                     </div>
                     <div class="text-sm text-gray-600">Pedidos</div>
                 </div>
-                
+
                 <div class="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-4 border border-yellow-200 hover:border-yellow-500">
                     <div class="text-sm text-yellow-600 font-semibold mb-1">Em Análise</div>
                     <div class="text-2xl font-bold text-gray-900">
@@ -53,7 +55,7 @@
                     </div>
                     <div class="text-sm text-gray-600">Pedidos</div>
                 </div>
-                
+
                 <div class="bg-linear-to-r from-red-50 to-red-100 rounded-2xl p-4 border border-red-200 hover:border-red-500">
                     <div class="text-sm text-red-600 font-semibold mb-1">Cancelados</div>
                     <div class="text-2xl font-bold text-gray-900">
@@ -64,7 +66,7 @@
             </div>
         </div>
 
-        <div class="rounded-3xl shadow-lg overflow-hidden border  border-gray-200 ">  
+        <div class="rounded-3xl shadow-lg overflow-hidden border  border-gray-200 ">
 
             <div class="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
                 <div class="flex items-center justify-between">
@@ -74,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="hidden md:grid md:grid-cols-6 gap-4 px-6 py-3  bg-gray-50 border-b border-gray-200">
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">ID</div>
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Cliente</div>
@@ -85,12 +87,12 @@
             </div>
             <div class="divide-y divide-gray-200 bg-white/50">
                 @forelse($orders as $order)
-                    <div class="hover:bg-gray-50 transition-colors duration-350 backdrop-blur-2xl ">   
-                        <div class="hidden md:grid md:grid-cols-6 gap-4 px-6 py-4 items-center">                        
+                    <div class="hover:bg-gray-50 transition-colors duration-350 backdrop-blur-2xl ">
+                        <div class="hidden md:grid md:grid-cols-6 gap-4 px-6 py-4 items-center">
                             <div  class="text-sm font-medium text-gray-900 font-mono hover:scale-105 transition-all">
                                 #{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}
                             </div >
-                            
+
                             <div class="flex items-center">
                                 <div class="shrink-0 h-10 w-10">
                                     <div class="h-10 w-10 rounded-full bg-linear-to-r from-blue-500 to-indigo-500 flex items-center justify-center">
@@ -114,7 +116,7 @@
                                 </div>
                             </div>
                             <div>
-                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full
                                     bg-{{$order->statusColor()}}-500">
                                     {{ $order->translateStatus() }}
                                 </span>

@@ -16,7 +16,7 @@
                         Informação
                     @endif
                 </h2>
-                <button 
+                <button
                     onclick="hideOrderDetails('divErrors')"
                     class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors"
                 >
@@ -42,7 +42,7 @@
         </div>
     @endif
 
-    <div class="container mx-auto bg-white rounded-2xl p-3 shadow ">
+    <div class="container mx-auto bg-white rounded-2xl p-3 shadow">
         <div class="max-w-6xl mx-auto p-8">
             <div class="bg-white rounded-[20px] p-8 shadow-lg border border-purple-200">
                 <div class="text-center mb-8">
@@ -54,8 +54,8 @@
                     <div class="flex flex-col gap-6">
                         <div class="flex flex-col gap-2">
                             <label for="type_id" class="text-sm font-bold text-center text-purple-600">SELECIONE O TIPO DO SERVIÇO</label>
-                            <select 
-                                name="type_id" 
+                            <select
+                                name="type_id"
                                 id="type_id"
                                 class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition"
                             >
@@ -67,11 +67,11 @@
 
                         <div class="flex flex-col gap-2">
                             <label for="description" class="text-center text-sm font-bold text-purple-600">Descreva o serviço</label>
-                            <textarea 
+                            <textarea
                                 wrap="hard"
-                                class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none" 
-                                rows="4" 
-                                name="description" 
+                                class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none"
+                                rows="4"
+                                name="description"
                                 id="description"
                             ></textarea>
                         </div>
@@ -79,19 +79,19 @@
 
                         <div class="flex flex-col gap-2 justi">
                             <label for="address" class="text-center text-sm font-bold text-purple-600">Digite o endereço</label>
-                            <textarea 
+                            <textarea
                                 wrap="hard"
-                                class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none" 
-                                rows="4" 
-                                name="address" 
+                                class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none"
+                                rows="4"
+                                name="address"
                                 id="address"
                             ></textarea>
                         </div>
 
 
-                        
+
                         <div class="flex justify-center items-center gap-4 mt-4">
-                            <button 
+                            <button
                                 class="px-6 py-3 bg-purple-600 text-white font-semibold rounded-[20px] shadow-lg hover:bg-purple-700 transition-colors"
                                 type="button"
                                 onclick="showOrderDetails('order-overlay')"
@@ -123,10 +123,10 @@
                             </div>
 
                             <div class="flex justify-center gap-5">
-                                <button 
+                                <button
                                     class="px-6 py-3 bg-purple-600 text-white font-semibold cursor-pointer rounded-[20px] shadow-lg hover:bg-green-700 transition-colors"
                                     type="submit"
-                                    
+
                                 >
                                     Confirmar
                                 </button>
@@ -138,7 +138,7 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </form>
             </div>
