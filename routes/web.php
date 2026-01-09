@@ -42,12 +42,13 @@ Route::middleware(['auth', 'role:1'])->prefix('employee')->group(function(){
 Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::get('/dashboard', [AdminController::class, 'DashBoard'])->name('admin.dashboard');
     Route::get('/orders', [OrderController::class, 'indexOrdersOfAdmin'])->name('admin.orders');
+    Route::get('/orders/filter/{filter}', [OrderController::class, 'indexOrdersWithFilterOfAdmin'])->name('admin.orders.filter');
     Route::get('/orders/create', [OrderController::class, 'createOfAdmin'])->name('admin.orders.create');
     Route::post('/orders/create', [OrderController::class, 'storeOfAdmin'])->name('admin.orders.store');
     Route::get('/orders/{id}', [OrderController::class, 'showForAdmin'])->name('admin.orders.show');
     Route::get('/orders/edit/{id}', [OrderController::class, 'editOfAdmin'])->name('admin.orders.edit');
-    Route::put('/orders/${id}', [OrderController::class, 'updateOfAdmin'])->name('admin.orders.update');
-    Route::delete('/orders/${id}', [OrderController::class, 'destroyOfAdmin'])->name('admin.orders.destroy');
+    Route::put('/orders/edit{id}', [OrderController::class, 'updateOfAdmin'])->name('admin.orders.update');
+    Route::delete('/orders/delete{id}', [OrderController::class, 'destroyOfAdmin'])->name('admin.orders.destroy');
 
 
 

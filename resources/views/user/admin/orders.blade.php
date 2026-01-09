@@ -9,19 +9,20 @@
             <div class="flex backdrop-blur-2xl flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                        Todos os Pedidos
+                        Todos os Pedidos @if(isset($filter)){{$translateStatus[$filter]}} @endif
                     </h1>
                     <p class="text-gray-600">
-                        Gerencie e visualize todos os pedidos do sistema
+                        Gerencie e visualize os pedidos do sistema
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-4">
-                    <select class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Todos</option>
-                        <option value="pending">Agendado</option>
-                        <option value="in_progress">Em análise</option>
-                        <option value="completed">Concluído</option>
-                        <option value="cancelled">Cancelado</option>
+                    <select id="orderFilter"
+                            class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option @if(isset($filter)){{$filter==''?'selected':''}}@endif  value="{{ route('admin.orders') }}">TODOS</option>
+                        <option @if(isset($filter)){{$filter=='in_analysis'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'in_analysis') }}">EM ANÁLISE</option>
+                        <option @if(isset($filter)){{$filter=='scheduled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'scheduled') }}">AGENDADO</option>
+                        <option @if(isset($filter)){{$filter=='canceled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'canceled') }}">CANCELADO</option>
+                        <option @if(isset($filter)){{$filter=='completed'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'completed') }}">CONCLUÍDO</option>
                     </select>
 
                     <a
@@ -32,38 +33,40 @@
                     </a>
                 </div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+            @if(isset($ordersCount))
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
 
-                <div class="bg-linear-to-r from-blue-50 to-blue-100 rounded-2xl p-4 border border-blue-200 hover:border-blue-500">
-                    <div class="text-sm text-blue-600 font-semibold mb-1">Total</div>
-                    <div class="text-2xl font-bold text-gray-900">{{ $orders->count() }}</div>
-                    <div class="text-sm text-gray-600">Pedidos</div>
-                </div>
-
-                <div class="bg-linear-to-r from-green-50 to-green-100 rounded-2xl p-4 border border-green-200 hover:border-green-500">
-                    <div class="text-sm text-green-600 font-semibold mb-1">Concluídos</div>
-                    <div class="text-2xl font-bold text-gray-900">
-                        {{ $ordersCount['completed'] }}
+                    <div class="bg-linear-to-r from-blue-50 to-blue-100 rounded-2xl p-4 border border-blue-200 hover:border-blue-500">
+                        <div class="text-sm text-blue-600 font-semibold mb-1">Total</div>
+                        <div class="text-2xl font-bold text-gray-900">{{ $orders->count() }}</div>
+                        <div class="text-sm text-gray-600">Pedidos</div>
                     </div>
-                    <div class="text-sm text-gray-600">Pedidos</div>
-                </div>
 
-                <div class="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-4 border border-yellow-200 hover:border-yellow-500">
-                    <div class="text-sm text-yellow-600 font-semibold mb-1">Em Análise</div>
-                    <div class="text-2xl font-bold text-gray-900">
-                        {{ $ordersCount['in_analysis']}}
+                    <div class="bg-linear-to-r from-green-50 to-green-100 rounded-2xl p-4 border border-green-200 hover:border-green-500">
+                        <div class="text-sm text-green-600 font-semibold mb-1">Concluídos</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            {{ $ordersCount['completed'] }}
+                        </div>
+                        <div class="text-sm text-gray-600">Pedidos</div>
                     </div>
-                    <div class="text-sm text-gray-600">Pedidos</div>
-                </div>
 
-                <div class="bg-linear-to-r from-red-50 to-red-100 rounded-2xl p-4 border border-red-200 hover:border-red-500">
-                    <div class="text-sm text-red-600 font-semibold mb-1">Cancelados</div>
-                    <div class="text-2xl font-bold text-gray-900">
-                        {{ $ordersCount['canceled']}}
+                    <div class="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-4 border border-yellow-200 hover:border-yellow-500">
+                        <div class="text-sm text-yellow-600 font-semibold mb-1">Em Análise</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            {{ $ordersCount['in_analysis']}}
+                        </div>
+                        <div class="text-sm text-gray-600">Pedidos</div>
                     </div>
-                    <div class="text-sm text-gray-600">Pedidos</div>
+
+                    <div class="bg-linear-to-r from-red-50 to-red-100 rounded-2xl p-4 border border-red-200 hover:border-red-500">
+                        <div class="text-sm text-red-600 font-semibold mb-1">Cancelados</div>
+                        <div class="text-2xl font-bold text-gray-900">
+                            {{ $ordersCount['canceled']}}
+                        </div>
+                        <div class="text-sm text-gray-600">Pedidos</div>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <div class="rounded-3xl shadow-lg overflow-hidden border  border-gray-200 ">
@@ -150,4 +153,14 @@
         </div>
     </div>
 </main>
+@endsection
+@section('scripts')
+    <script>
+        document.getElementById('orderFilter').addEventListener('change', function () {
+            if (this.value) {
+                window.location.href = this.value;
+
+            }
+        });
+    </script>
 @endsection

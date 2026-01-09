@@ -46,6 +46,18 @@ class OrderController extends Controller
         return view('user.admin.orders', compact('orders','ordersCount'));
     }
 
+    public function indexOrdersWithFilterOfAdmin($filter)
+    {
+        $validStatus = ['in_analysis', 'scheduled', 'completed', 'canceled'];
+        $translateStatus = ['in_analysis'=>'Em análise', 'scheduled'=>'Agendados', 'completed'=>"Concluídos", 'canceled'=>'Cancelados'];
+
+        if (in_array($filter, $validStatus)) {
+            $orders = Order::where('status', $filter)->paginate(10);
+            return view('user.admin.orders', compact('orders', 'filter', 'translateStatus'));
+        }
+        return abort(404);
+    }
+
 
     public function indexOrdersOfClient(Request $request)
     {
