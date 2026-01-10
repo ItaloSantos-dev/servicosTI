@@ -20,9 +20,9 @@
                             class="border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option @if(isset($filter)){{$filter==''?'selected':''}}@endif  value="{{ route('admin.orders') }}">TODOS</option>
                         <option @if(isset($filter)){{$filter=='in_analysis'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'in_analysis') }}">EM ANÁLISE</option>
-                        <option @if(isset($filter)){{$filter=='scheduled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'scheduled') }}">AGENDADO</option>
-                        <option @if(isset($filter)){{$filter=='canceled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'canceled') }}">CANCELADO</option>
-                        <option @if(isset($filter)){{$filter=='completed'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'completed') }}">CONCLUÍDO</option>
+                        <option @if(isset($filter)){{$filter=='scheduled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'scheduled') }}">AGENDADOS</option>
+                        <option @if(isset($filter)){{$filter=='canceled'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'canceled') }}">CANCELADOS</option>
+                        <option @if(isset($filter)){{$filter=='completed'?'selected':''}}@endif value="{{ route('admin.orders.filter', 'completed') }}">CONCLUÍDOS</option>
                     </select>
 
                     <a
@@ -34,42 +34,50 @@
                 </div>
             </div>
             @if(isset($ordersCount))
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
 
-                    <div class="bg-linear-to-r from-blue-50 to-blue-100 rounded-2xl p-4 border border-blue-200 hover:border-blue-500">
-                        <div class="text-sm text-blue-600 font-semibold mb-1">Total</div>
-                        <div class="text-2xl font-bold text-gray-900">{{ $orders->count() }}</div>
-                        <div class="text-sm text-gray-600">Pedidos</div>
+                    <div class="bg-linear-to-r from-yellow-50 to-yellow-300 rounded-2xl p-4 border border-yellow-200 hover:border-yellow-500">
+                       <a href="{{route('admin.orders')}}"> <div class="text-sm text-yellow-600 font-semibold mb-1">Total</div>
+                           <div class="text-2xl font-bold text-gray-900">{{ $ordersCount['all'] }}</div>
+                           <div class="text-sm text-gray-600">Pedidos</div></a>
                     </div>
 
-                    <div class="bg-linear-to-r from-green-50 to-green-100 rounded-2xl p-4 border border-green-200 hover:border-green-500">
-                        <div class="text-sm text-green-600 font-semibold mb-1">Concluídos</div>
-                        <div class="text-2xl font-bold text-gray-900">
-                            {{ $ordersCount['completed'] }}
-                        </div>
-                        <div class="text-sm text-gray-600">Pedidos</div>
+                    <div class="bg-linear-to-r from-green-50 to-green-300 rounded-2xl p-4 border border-green-200 hover:border-green-500">
+                        <a href="{{ route('admin.orders.filter', 'completed') }}"><div class="text-sm text-green-600 font-semibold mb-1">Concluídos</div>
+                            <div class="text-2xl font-bold text-gray-900">
+                                {{ $ordersCount['completed'] }}
+                            </div>
+                            <div class="text-sm text-gray-600">Pedidos</div></a>
                     </div>
 
-                    <div class="bg-linear-to-r from-yellow-50 to-yellow-100 rounded-2xl p-4 border border-yellow-200 hover:border-yellow-500">
-                        <div class="text-sm text-yellow-600 font-semibold mb-1">Em Análise</div>
-                        <div class="text-2xl font-bold text-gray-900">
-                            {{ $ordersCount['in_analysis']}}
-                        </div>
-                        <div class="text-sm text-gray-600">Pedidos</div>
+                    <div class="bg-linear-to-r from-gray-50 to-gray-300 rounded-2xl p-4 border border-gray-200 hover:border-gray-500">
+                        <a href="{{ route('admin.orders.filter', 'in_analysis') }}"><div class="text-sm text-gray-600 font-semibold mb-1">Em Análise</div>
+                            <div class="text-2xl font-bold text-gray-900">
+                                {{ $ordersCount['in_analysis']}}
+                            </div>
+                            <div class="text-sm text-gray-600">Pedidos</div></a>
                     </div>
 
-                    <div class="bg-linear-to-r from-red-50 to-red-100 rounded-2xl p-4 border border-red-200 hover:border-red-500">
-                        <div class="text-sm text-red-600 font-semibold mb-1">Cancelados</div>
-                        <div class="text-2xl font-bold text-gray-900">
-                            {{ $ordersCount['canceled']}}
-                        </div>
-                        <div class="text-sm text-gray-600">Pedidos</div>
+                    <div class="bg-linear-to-r from-red-50 to-red-300 rounded-2xl p-4 border border-red-200 hover:border-red-500">
+                        <a href="{{ route('admin.orders.filter', 'canceled') }}"><div class="text-sm text-red-600 font-semibold mb-1">Cancelados</div>
+                            <div class="text-2xl font-bold text-gray-900">
+                                {{ $ordersCount['canceled']}}
+                            </div>
+                            <div class="text-sm text-gray-600">Pedidos</div></a>
+                    </div>
+
+                    <div class="bg-linear-to-r from-blue-50 to-blue-300 rounded-2xl p-4 border border-blue-200 hover:border-blue-500">
+                        <a href="{{ route('admin.orders.filter', 'scheduled') }}"><div class="text-sm text-blue-600 font-semibold mb-1">Agendados</div>
+                            <div class="text-2xl font-bold text-gray-900">
+                                {{ $ordersCount['scheduled']}}
+                            </div>
+                            <div class="text-sm text-gray-600">Pedidos</div></a>
                     </div>
                 </div>
             @endif
         </div>
 
-        <div class="rounded-3xl shadow-lg overflow-hidden border  border-gray-200 ">
+        <div class="rounded-3xl shadow-lg overflow-hidden border  border-gray-200 mb-3">
 
             <div class="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
                 <div class="flex items-center justify-between">
@@ -88,7 +96,7 @@
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Data do pedido</div>
                 <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider">Ações</div>
             </div>
-            <div class="divide-y divide-gray-200 bg-white/50">
+            <div class="divide-y divide-gray-200 bg-white/50 ">
                 @forelse($orders as $order)
                     <div class="hover:bg-gray-50 transition-colors duration-350 backdrop-blur-2xl ">
                         <div class="hidden md:grid md:grid-cols-6 gap-4 px-6 py-4 items-center">
@@ -146,11 +154,11 @@
                 @endforelse
             </div>
         </div>
-        <div class="flex justify-center items-center bg-white/40 mt-2 rounded-2xl shadow-2xl mb-5 p-2">
+       @if($orders->hasPages()) <div class="flex justify-center items-center bg-white/40 mt-2 rounded-2xl shadow-2xl mb-5 p-2">
             <div class="backdrop-blur-2xl">
                 {{ $orders->links('pagination::simple-tailwind') }}
             </div>
-        </div>
+        </div> @endif
     </div>
 </main>
 @endsection

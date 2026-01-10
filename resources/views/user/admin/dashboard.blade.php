@@ -70,7 +70,7 @@
                     </div>
                     @endforelse
                 </div>
-                <div class="flex justify-between items-center text-center mt-2"><a href="" class="text-center p-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors cursor-pointer hover:shadow-2xl ">Ver todos agendados</a></div>
+                <div class="flex justify-between items-center text-center mt-2"><a href="{{route('admin.orders.filter', 'scheduled')}}" class="text-center p-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-colors cursor-pointer hover:shadow-2xl ">Ver todos agendados</a></div>
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -123,10 +123,6 @@
                         Novo pedido
                     </a>
 
-                    <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
-                        <i class="fa-solid fa-user-plus w-5 mr-3"></i>
-                        Adicionar Cliente
-                    </a>
 
                     <a class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center">
                         <i class="fa-solid fa-user-tie w-5 mr-3"></i>

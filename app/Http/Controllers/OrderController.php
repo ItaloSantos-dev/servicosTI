@@ -37,6 +37,7 @@ class OrderController extends Controller
      */
     public function indexOrdersOfAdmin(){
         $ordersCount=[
+            'all'=>Order::count(),
             'in_analysis' => Order::where('status', 'in_analysis')->count(),
             'scheduled' => Order::where('status', 'scheduled')->count(),
             'completed' => Order::where('status', 'completed')->count(),
