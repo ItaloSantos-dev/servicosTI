@@ -8,5 +8,5 @@ class OrderType extends Model
 {
     protected $table='Order_Types';
 
-    protected  $fillable = ['name', 'amount'];
+    protected  $fillable = ['name', 'amount', 'active'];
 }

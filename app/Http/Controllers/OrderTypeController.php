@@ -23,7 +23,7 @@ class OrderTypeController extends Controller
 
     public function index()
     {
-        $orderTypes = OrderType::paginate(10);
+        $orderTypes = OrderType::orderBy('active', 'desc')->paginate(10);
         return view('user.admin.orderType.orderTypes', compact('orderTypes'));
     }
 

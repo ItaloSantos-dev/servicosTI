@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('slug', 10);
             $table->integer('amount');
-            $table->boolean('active');
-            $table->decimal('minimum_amount', 10,2);
+            $table->boolean('active')->default(true);
+            $table->decimal('minimum_amount', 10,2)->default(0);
             $table->timestamps();
         });
     }

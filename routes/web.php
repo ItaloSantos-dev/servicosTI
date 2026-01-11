@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DiscountCuponController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -56,6 +57,12 @@ Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::post('/orderTypes/create', [OrderTypeController::class, 'store'])->name('admin.orderTypes.store');
     Route::get('/orderTypes/edit/{id}', [OrderTypeController::class, 'edit'])->name('admin.orderTypes.edit');
     Route::put('/orderTypes/edit/{id}', [OrderTypeController::class, 'update'])->name('admin.orderTypes.update');
+
+    Route::get('/discount-cupons', [ DiscountCuponController::class, 'index'])->name('admin.discountCupons');
+    Route::get('/discount-cupons/create', [ DiscountCuponController::class, 'create'])->name('admin.discountCupons.create');
+    Route::post('/discount-cupons/store', [ DiscountCuponController::class, 'store'])->name('admin.discountCupons.store');
+    Route::get('/discount-cupons/edit/{id}', [ DiscountCuponController::class, 'edit'])->name('admin.discountCupons.edit');
+    Route::put('/discount-cupons/edit/{id}', [ DiscountCuponController::class, 'update'])->name('admin.discountCupons.update');
 
 
 
