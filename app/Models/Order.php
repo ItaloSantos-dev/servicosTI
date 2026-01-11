@@ -21,7 +21,7 @@ class Order extends Model
     ];
 
     public function TypeOrder(){
-        return $this->belongsTo(OrderTypes::class,'type_id');
+        return $this->belongsTo(OrderType::class,'type_id');
     }
 
     public function client(){

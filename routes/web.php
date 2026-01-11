@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\OrderTypeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
@@ -50,6 +50,12 @@ Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::put('/orders/edit{id}', [OrderController::class, 'updateOfAdmin'])->name('admin.orders.update');
     Route::delete('/orders/delete{id}', [OrderController::class, 'destroyOfAdmin'])->name('admin.orders.destroy');
 
+
+    Route::get('/orderTypes', [OrderTypeController::class, 'index'])->name('admin.orderTypes');
+    Route::get('/orderTypes/create', [OrderTypeController::class, 'create'])->name('admin.orderTypes.create');
+    Route::post('/orderTypes/create', [OrderTypeController::class, 'store'])->name('admin.orderTypes.store');
+    Route::get('/orderTypes/edit/{id}', [OrderTypeController::class, 'edit'])->name('admin.orderTypes.edit');
+    Route::put('/orderTypes/edit/{id}', [OrderTypeController::class, 'update'])->name('admin.orderTypes.update');
 
 
 

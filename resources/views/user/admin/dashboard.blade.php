@@ -129,6 +129,16 @@
                         Adicionar funcionário
                     </a>
 
+                    <a href="{{route('admin.orderTypes')}}" class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
+                        <i class="fa-solid fa-cog w-5 mr-3"></i>
+                        Gerenciar tipos de serviços
+                    </a>
+
+                    <a href="{{route('admin.orders.create')}}" class="cursor-pointer w-full bg-white/20 hover:bg-white/30 rounded-lg p-3 text-left transition-colors flex items-center ">
+                        <i class="fa-solid fa-ticket w-5 mr-3"></i>
+                        Gerenciar cupons
+                    </a>
+
                 </div>
             </div>
         </div>

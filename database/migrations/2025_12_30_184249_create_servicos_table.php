@@ -24,6 +24,7 @@ return new class extends Migration
             $table->dateTime('cancellation_date')->nullable();//Data de cancelamento
             $table->text('reason_for_cancellation')->nullable();//motivo do cancelamento
             $table->unsignedTinyInteger('rating')->nullable();
+            $table->text('report');
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

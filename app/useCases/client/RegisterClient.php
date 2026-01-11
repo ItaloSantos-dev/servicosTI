@@ -1,10 +1,10 @@
-<?php 
-namespace App\UseCases\Client;
+<?php
+namespace App\useCases\Client;
 
 use App\Models\Client;
 use App\Models\User;
 
-class RegisterClient 
+class RegisterClient
 {
     public function execute(array $data): void
     {

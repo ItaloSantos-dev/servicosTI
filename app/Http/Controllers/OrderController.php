@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Employee;
 use App\Models\Order;
-use App\Models\OrderTypes;
+use App\Models\OrderType;
 use App\Models\User;
 use App\useCases\admin\CreateOrderAdmin;
 use App\useCases\admin\UpdateOrderAdmin;
@@ -44,7 +44,7 @@ class OrderController extends Controller
             'canceled' => Order::where('status', 'canceled')->count(),
         ];
         $orders = Order::with('client.user', 'employees.user', 'TypeOrder')->orderBy('order_date', 'desc')->paginate(10);
-        return view('user.admin.orders', compact('orders','ordersCount'));
+        return view('user.admin.order.orders', compact('orders','ordersCount'));
     }
 
     public function indexOrdersWithFilterOfAdmin($filter)
@@ -54,7 +54,7 @@ class OrderController extends Controller
 
         if (in_array($filter, $validStatus)) {
             $orders = Order::where('status', $filter)->paginate(10);
-            return view('user.admin.orders', compact('orders', 'filter', 'translateStatus'));
+            return view('user.admin.order.orders', compact('orders', 'filter', 'translateStatus'));
         }
         return abort(404);
     }
@@ -69,7 +69,7 @@ class OrderController extends Controller
 
     public function showForAdmin($id){
         $order = Order::with('client.user', 'employees.user', 'TypeOrder')->find($id);
-        return view('user.admin.order', compact('order'));
+        return view('user.admin.order.orders', compact('order'));
     }
 
     public function indexOrdersOfEmployee(Request $request){
@@ -84,17 +84,17 @@ class OrderController extends Controller
      */
     public function createOfClient()
     {
-        $orderTypes = OrderTypes::all();
+        $orderTypes = OrderType::all();
         return view('user.client.newOrder', compact('orderTypes'));
     }
 
     public function createOfAdmin()
     {
-        $orderTypes = OrderTypes::all();
+        $orderTypes = OrderType::all();
         $employees = Employee::with('user')->get();
         $clients = Client::with('user')->get();
 
-        return view('user.admin.newOrder', compact('orderTypes', 'employees', 'clients'));
+        return view('user.admin.order.newOrder', compact('orderTypes', 'employees', 'clients'));
     }
 
     /**
@@ -164,15 +164,15 @@ class OrderController extends Controller
     public function editOfClient(string $id)
     {
         $order = Order::with('TypeOrder')->findOrFail($id);
-        $orderTypes = OrderTypes::all();
+        $orderTypes = OrderType::all();
         return view('user.client.updateOrder', compact('order', 'orderTypes'));
     }
 
     public function editOfAdmin(string $id){
         $order = Order::with('TypeOrder', 'employees.user', 'client.user')->findOrFail($id);
-        $typeOrders = OrderTypes::all();
+        $typeOrders = OrderType::all();
         $employees = Employee::with('user')->get();
-        return view('user.admin.updateOrder', compact('order', 'typeOrders', 'employees'));
+        return view('user.admin.order.updateOrder', compact('order', 'typeOrders', 'employees'));
     }
 
     /**
