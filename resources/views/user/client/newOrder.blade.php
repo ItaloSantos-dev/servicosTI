@@ -45,24 +45,51 @@
     <div class="container mx-auto bg-white rounded-2xl p-3 shadow">
         <div class="max-w-6xl mx-auto p-8">
             <div class="bg-white rounded-[20px] p-8 shadow-lg border border-purple-200">
-                <div class="text-center mb-8">
+                <div class="text-center mb-8 flex justify-between">
                     <h1 class="font-bold text-purple-700 text-3xl">NOVO PEDIDO</h1>
+                    <h1 id="valueOrder" class="font-semibold  text-2xl">Preço R$ 0</h1>
                 </div>
 
                 <form action="{{route('client.orders.store')}}" method="post">
                     @csrf
                     <div class="flex flex-col gap-6">
-                        <div class="flex flex-col gap-2">
-                            <label for="type_id" class="text-sm font-bold text-center text-purple-600">SELECIONE O TIPO DO SERVIÇO</label>
-                            <select
-                                name="type_id"
-                                id="type_id"
-                                class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition"
-                            >
-                                @foreach($orderTypes as $type)
-                                    <option class="uppercase text-black" value="{{$type->id}}">{{mb_strtoupper($type->name, 'UTF-8')}}</option>
-                                @endforeach
-                            </select>
+                        <div class="grid grid-cols-2 gap-4" >
+
+                            <div class="flex flex-col gap-2">
+                                <label for="type_id" class="text-sm font-bold text-center text-purple-600">SELECIONE O TIPO DO SERVIÇO</label>
+                                <select
+                                    onchange="ChangeValue(this.value)"
+                                    name="type_id"
+                                    id="type_id"
+                                    class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition"
+                                >
+                                    <option>SELECIONE O TIPO QUE MAIS PARECE O SEU CASO</option>
+                                    @foreach($orderTypes as $type)
+                                        <div id="value{{$type->id}}" class="hidden ">{{$type->amount}}</div>
+                                        <option id="o{{$type->id}}"  class="uppercase text-black" value="{{$type->id}}">{{mb_strtoupper($type->name, 'UTF-8')}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="discount_cupon" class="text-sm font-bold text-center text-purple-600">Cupom de desconto</label>
+                                <input disabled onchange="VerifCupon(this.value)" type="text" name="discount_cupon" id="discount_cupon" class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition">
+
+                                <input disabled class="hidden" type="text" name="discount_cupon_id" id="discount_cupon_id">
+                                <div name="discount_amoun" id="discount_amoun"></div>
+                            </div>
+                            @foreach($discountCupons as $discountCupon)
+                                <div id="valueCupon{{$discountCupon->id}}"
+                                     data-cuponId="{{$discountCupon->id}}"
+                                     data-cuponSlug="{{$discountCupon->slug}}"
+                                     data-cuponMinimumAmount="{{$discountCupon->minimum_amount}}"
+                                     data-cuponDiscountAmount="{{$discountCupon->amount}}"
+                                     class="hidden minimumAmountCupon">
+                                </div>
+                            @endforeach
+
+
+
                         </div>
 
                         <div class="flex flex-col gap-2">
@@ -76,7 +103,6 @@
                             ></textarea>
                         </div>
 
-
                         <div class="flex flex-col gap-2 justi">
                             <label for="address" class="text-center text-sm font-bold text-purple-600">Digite o endereço</label>
                             <textarea
@@ -87,7 +113,6 @@
                                 id="address"
                             ></textarea>
                         </div>
-
 
 
                         <div class="flex justify-center items-center gap-4 mt-4">
@@ -109,7 +134,6 @@
                     </div>
 
                     <div id="order-overlay" class="fixed hidden inset-0 bg-black/50 bg-opacity-60 backdrop-blur-md z-50  items-center justify-center p-4">
-
                         <div class="bg-white rounded-[20px] p-8 shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
                             <div class="flex justify-center"><h1 class="text-2xl font-bold">CONFIRME SUA SENHA</h1></div>
 
@@ -126,7 +150,6 @@
                                 <button
                                     class="px-6 py-3 bg-purple-600 text-white font-semibold cursor-pointer rounded-[20px] shadow-lg hover:bg-green-700 transition-colors"
                                     type="submit"
-
                                 >
                                     Confirmar
                                 </button>
@@ -138,7 +161,6 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -148,6 +170,53 @@
 
 @section('scripts')
 <script>
+    const cuponMap = new Map();
+
+    //montar map com slug:[minimum_amount,id]
+    for (const cupon of document.getElementsByClassName('minimumAmountCupon')){
+        cuponMap.set(cupon.dataset.cuponslug, [parseFloat(cupon.dataset.cuponminimumamount), cupon.dataset.cuponid, parseFloat(cupon.dataset.cupondiscountamount)]);
+    }
+    console.log(cuponMap);
+
+
+    function VerifCupon(slug){
+        if(valueOrder===0){
+            document.getElementById('discount_cupon').disabled=true;
+        }
+        const cupon = cuponMap.get(slug);
+
+        if(cupon){
+            if(valueOrder>0 && valueOrder>=cupon[0]){
+                document.getElementById('discount_cupon_id').value=cupon[1];
+                document.getElementById('discount_amoun').textContent=cupon[2] + "% de desconto";
+                document.getElementById('valueOrder'). innerText = "Preço R$ " + (valueOrder - (cupon[2]/100)) ;
+
+
+            }
+            else{
+                document.getElementById('discount_amoun').textContent="Cupom para compras a partir de  R$" + cupon[0];
+            }
+        }
+        else{
+            console.log('não tem o cupon');
+        }
+
+    }
+
+    var valueOrder =0;
+
+
+    function ChangeValue(id){
+        document.getElementById('valueOrder'). innerText = "Preço R$ " + document.getElementById('value'+id).textContent;
+        valueOrder = parseFloat(document.getElementById('value'+id).textContent);
+        if(valueOrder===0){
+            document.getElementById('discount_cupon').disabled=true;
+        }
+        else{
+            document.getElementById('discount_cupon').disabled=false;
+        }
+    }
+
     function ExibirSenha() {
         var senhaInput = document.getElementById("password");
         var exibirSenhaBtn = document.getElementById("exibirSenha");
@@ -182,6 +251,8 @@
             hideOrderDetails('order-overlay');
         }
     });
+
+
 </script>
 @endsection
 @endsection

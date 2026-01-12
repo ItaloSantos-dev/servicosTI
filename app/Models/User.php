@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
+
+
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -25,17 +28,17 @@ class User extends Authenticatable
         'date_birth',
         'telephone',
         'role',
-        'email', 
+        'email',
         'password',
     ];
-    
+
 
     public function client()
     {
         return $this->hasOne(Client::class);
     }
 
-    
+
 
     public function employee()
     {

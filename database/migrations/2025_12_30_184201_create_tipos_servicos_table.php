@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Order_types', function (Blueprint $table) {
+        Schema::create('order_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique();
             $table->decimal('amount',10,2);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Order_types');
+        Schema::dropIfExists('order_types');
     }
 };

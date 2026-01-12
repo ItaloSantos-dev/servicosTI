@@ -25,14 +25,14 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8',
-            'cpf' => 'required|string|unique:users|cpf',
+            'cpf' => 'required|string|unique:users,cpf|cpf',
             'date_birth' => 'required|date',
-            'telephone' => 'required|string|size:15|unique:users|celular_com_ddd',
+            'telephone' => 'required|string|size:15|unique:users,telephone|celular_com_ddd',
         ]);
         $this->registerClient->execute($credentials);
-        
+
 
         return redirect()->route('registerForms')->with('info', 'Registro criado com sucesso! Agora realize Login');
     }

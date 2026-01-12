@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\DiscountCupon;
 use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderType;
@@ -85,7 +86,8 @@ class OrderController extends Controller
     public function createOfClient()
     {
         $orderTypes = OrderType::all();
-        return view('user.client.newOrder', compact('orderTypes'));
+        $discountCupons = DiscountCupon::all();
+        return view('user.client.newOrder', compact('orderTypes', 'discountCupons'));
     }
 
     public function createOfAdmin()

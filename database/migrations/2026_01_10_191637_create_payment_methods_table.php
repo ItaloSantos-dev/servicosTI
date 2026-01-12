@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discount_cupons', function (Blueprint $table) {
+        Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->string('slug', 10)->unique();
-            $table->integer('amount');
-            $table->boolean('active')->default(true);
-            $table->decimal('minimum_amount', 10,2)->default(0);
+            $table->string('name', 50)->unique();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('discount_cupons');
+        Schema::dropIfExists('payment_methods');
     }
 };

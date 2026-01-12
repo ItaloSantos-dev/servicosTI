@@ -15,17 +15,19 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('discount_coupon_id')->nullable();//valor a ser dividio por cem
-            $table->decimal('discount', 10, 2)->default(0);//valor para desconto
-            $table->decimal('additional_fee', 10, 2)->default(0);//valor adicional
+            $table->decimal('discount', 10, 2)->default(0);//valor para descontar diretamente
+            $table->decimal('additional_fee', 10, 2)->default(0);//valor para adicionar diretamente
+
             $table->decimal('final_amount', 10, 2);//valor final após descontos e acréscimos
 
-            $table->string('payment_method', 50);
+            $table->unsignedBigInteger('payment_method_id');
             $table->string('invoice_number')->nullable();
-            $table->string('payment_status', 30);
+            $table->enum('payment_status', ['conclued', 'canceled', 'waiting']);
 
             $table->timestamp('paid_at')->nullable();
 
             $table->foreign('discount_coupon_id')->references('id')->on('discount_cupons')->onDelete('cascade');
+            $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });

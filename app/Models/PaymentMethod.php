@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DiscountCupon extends Model
+
+class PaymentMethod extends Model
 {
     use HasFactory;
-
-    protected $table='discount_cupons';
-    protected  $fillable = ['slug', 'amount', 'active', 'minimum_amount'];
 }
