@@ -7,6 +7,7 @@ use App\Models\DiscountCupon;
 use App\Models\Employee;
 use App\Models\Order;
 use App\Models\OrderType;
+use App\Models\PaymentMethod;
 use App\Models\User;
 use App\useCases\admin\CreateOrderAdmin;
 use App\useCases\admin\UpdateOrderAdmin;
@@ -60,18 +61,26 @@ class OrderController extends Controller
         return abort(404);
     }
 
+    public  function showFormPayment ($orderId)
+    {
+        $order = Order::with('payment', 'TypeOrder')->findOrFail($orderId);
+        $paymentMethods = PaymentMethod::all();
+        return view('user.client.paymentOrder', compact('order', 'paymentMethods'));
 
+    }
     public function indexOrdersOfClient(Request $request)
     {
         $user = $request->user()->load(['client']);
-        $orders = $user->client->orders()->orderBy('order_date', 'desc')->with('TypeOrder')->paginate(10);
+        $orders = $user->client->orders()->orderBy('order_date', 'desc')->with('TypeOrder', 'payment')->paginate(10);
         return view('user.client.orders', compact('user', 'orders'));
     }
 
+
     public function showForAdmin($id){
         $order = Order::with('client.user', 'employees.user', 'TypeOrder')->find($id);
-        return view('user.admin.order.orders', compact('order'));
+        return view('user.admin.order.order', compact('order'));
     }
+
 
     public function indexOrdersOfEmployee(Request $request){
         $employeeWithOrders = $request->user()->load('employee');

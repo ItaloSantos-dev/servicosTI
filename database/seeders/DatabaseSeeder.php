@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DiscountCupon;
+use App\Models\PaymentMethod;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +27,8 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             EmployeeOrderSeeder::class,
             DiscountCuponSeeder::class,
+            PaymentMethodSeeder::class,
+            PaymentSeeder::class
         ]);
 
     }

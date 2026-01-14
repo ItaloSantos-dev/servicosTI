@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DiscountCuponController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,8 @@ Route::middleware(['auth', 'role:0'])->prefix('client')->group(function(){
     Route::get('/orders/{id}', [OrderController::class, 'editOfClient'])->name('client.orders.edit');
     Route::put('/orders/{id}',[OrderController::class, 'updateOfClient'])->name('client.orders.update');
     Route::delete('/orders/{id}',[OrderController::class, 'destroyOfClient'])->name('client.orders.destroy');
+    Route::get('/orders/payment/{id}',[OrderController::class, 'showFormPayment'])->name('client.order.showFormPayment');
+    Route::post('/orders/payment/{id}',[PaymentController::class, 'executePayment'])->name('client.order.executePayment');
 
 });
 
@@ -63,8 +66,6 @@ Route::middleware(['auth', 'role:2'])->prefix('admin')->group(function(){
     Route::post('/discount-cupons/store', [ DiscountCuponController::class, 'store'])->name('admin.discountCupons.store');
     Route::get('/discount-cupons/edit/{id}', [ DiscountCuponController::class, 'edit'])->name('admin.discountCupons.edit');
     Route::put('/discount-cupons/edit/{id}', [ DiscountCuponController::class, 'update'])->name('admin.discountCupons.update');
-
-
 
 });
 

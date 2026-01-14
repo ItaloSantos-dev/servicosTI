@@ -206,7 +206,8 @@
                     <div class="flex items-start justify-between mb-4">
                         <div>
                             <div class="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-1">Avaliação Média</div>
-                            <div class="text-4xl font-bold text-gray-800">{{ number_format($avgRating ?? 0, 1) }}</div>
+                            <div id="ratingValueDiv" class="flex text-4xl text-gray-500 font-bold ">{{ number_format($avgRating ?? 0, 1) }}<div>/5</div>
+                            </div>
                         </div>
                         <div class="bg-linear-to-r from-purple-500 to-violet-500 p-3 rounded-xl">
                             <i class="fa-solid fa-star text-white text-2xl"></i>
@@ -237,5 +238,18 @@
 @endsection
 
 @section('scripts')
+    <script>
+        const ratingValue = document.getElementById('ratingValueDiv');
 
+        if(parseFloat(ratingValue.textContent)<3.5){
+            ratingValue.classList.replace('text-gray-500','text-red-500')
+        }
+        else if(parseFloat(ratingValue.textContent)<4.5){
+            ratingValue.classList.replace('text-gray-500','text-yellow-500')
+        }
+        else{
+            ratingValue.classList.replace('text-gray-500','text-green-500')
+
+        }
+    </script>
 @endsection

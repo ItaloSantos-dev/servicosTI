@@ -48,85 +48,52 @@
 
                     <div class="relative mb-8">
                         <h1 class="text-center font-bold text-purple-700 text-3xl">
-                            EDITAR PEDIDO {{$payment->order->id}}
+                            PAGAR PEDIDO {{$order->id}}
                         </h1>
-
-                        <button class="absolute right-0 top-1/2 -translate-y-1/2 ml-auto bg-white text-black font-bold py-3 px-6 rounded-lg hover:bg-red-400 border-2 border-purple-300 hover:border-purple-500 transition-all  duration-200 shadow-lg hover:shadow-xl transform hover:-transl ate-y-0.5"
-                                id="btnCancelarPedido"
-                                data-route="{{ route('client.orders.destroy', $order->id)}}"
-                                data-method="DELETE"
-                                data-show=true
-
-                        >
-                            Cancelar pedido
-                        </button>
                     </div>
 
-                    <form id="formUpdate" action="{{route('client.orders.update', $order->id)}}" method="post">
+
+                    <div>
+                        <div class="grid grid-cols-3 flex gap-6">
+
+                            <div class="flex flex-col gap-2">
+                                <h2>Tipo do pedido</h2>
+                                <div class="border border-purple-500 p-3 flex justify-center rounded shadow">{{$order->TypeOrder->name}}</div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h2>Descrição</h2>
+                                <div class="border border-purple-500 p-3 flex justify-center rounded shadow">{{$order->description}}</div>
+                            </div>
+                            <div class="flex flex-col gap-2 ">
+                                <h2>Endereço</h2>
+                                <div class="border border-purple-500 p-3 flex justify-center rounded shadow">{{$order->address}}</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center mb-2">
+                            Valor: {{$order->payment->final_amount}}
+                        </div>
+                    </div>
+
+                    <form action="{{route('client.order.executePayment', $order->payment->id)}}" method="POST">
                         @csrf
-                        @method('PUT')
-                        <div class="flex flex-col gap-6">
-                            <div class="flex flex-col gap-2">
-                                <label for="type_id" class="text-sm font-bold text-center text-purple-600">SELECIONE O TIPO DO SERVIÇO</label>
-                                <select
-                                    name="type_id"
-                                    id="type_id"
-                                    class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition"
-                                >
-                                    @foreach($orderTypes as $type)
-                                        @if($order->TypeOrder->id==$type->id)
-                                            <option class="uppercase text-black" value="{{$type->id}}" selected>{{mb_strtoupper($type->name, 'UTF-8')}}</option>
-                                        @else
-                                            <option class="uppercase text-black" value="{{$type->id}}">{{mb_strtoupper($type->name, 'UTF-8')}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="payment_method_id" class="text-sm font-bold text-center text-purple-600">SELECIONE MEIO DE PAGAMENTO</label>
+                            <select
+                                onchange="ShowPayment(this.value)"
+                                name="payment_method_id"
+                                id="payment_method_id"
+                                class="text-center text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:text-purple-500 transition"
+                            >
+                                @foreach($paymentMethods as $paymentMethod)
+                                        <option class="uppercase text-black" value="{{$paymentMethod->id}}">{{mb_strtoupper($paymentMethod->TranslateName(), 'UTF-8')}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                            <div class="flex flex-col gap-2">
-                                <label for="description" class="text-center text-sm font-bold text-purple-600">Descreva o serviço</label>
-                                <textarea
-                                    wrap="hard"
-                                    class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none"
-                                    rows="4"
-                                    name="description"
-                                    id="description"
-                                >{{$order->description}}</textarea>
-                            </div>
-
-
-                            <div class="flex flex-col gap-2 justi">
-                                <label for="address" class="text-center text-sm font-bold text-purple-600">Digite o endereço</label>
-                                <textarea
-                                    wrap="hard"
-                                    class="text-base text-gray-800 p-4 bg-purple-50 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition resize-none"
-                                    rows="4"
-                                    name="address"
-                                    id="address"
-                                >{{$order->address}}</textarea>
-                            </div>
-
-
-
-                            <div class="flex justify-center items-center gap-4 mt-4">
-                                <button
-                                    class="px-6 py-3 bg-purple-600 text-white font-semibold rounded-[20px] shadow-lg hover:bg-purple-700 transition-colors"
-                                    type="button"
-                                    id="btnConfirmarEdicao"
-                                    data-route="{{ route('client.orders.update', $order->id)}}"
-                                    data-method="PUT"
-                                    data-show=false
-                                >
-                                    Confirmar edição
-                                </button>
-
-                                <a class="px-6 py-3 bg-gray-500 text-white font-semibold rounded-[20px] shadow-lg hover:bg-gray-600 transition-colors"
-                                   type="button"
-                                   href="/orders"
-                                >
-                                    Cancelar
-                                </a>
-                            </div>
+                        <div class="flex justify-center mt-5">
+                            <button onclick="showOrderDetails('order-overlay')" class="bg-green-500 p-3 rounded-2xl shadow-2xl hover:bg-green-400 cursor-pointer transition-color" type="button">
+                                Confirmar pagamento
+                            </button>
                         </div>
 
                         <div id="order-overlay" class="fixed hidden inset-0 bg-black/50 bg-opacity-60 backdrop-blur-md z-50  items-center justify-center p-4">
@@ -192,7 +159,6 @@
                     exibirSenhaBtn.classList.add("fa-eye");
                 }
             }
-
             function showOrderDetails(divId) {
                 const overlay = document.getElementById(divId);
                 overlay.classList.remove('hidden');
@@ -205,32 +171,6 @@
                 overlay.classList.remove('flex');
                 document.body.style.overflow = 'auto';
             }
-            const btnConfirmar = document.getElementById('btnConfirmarEdicao');
-            btnConfirmar.addEventListener('click', ()=>{
-                AlterarRota(btnConfirmar.dataset.route, 'order-overlay', btnConfirmar.dataset.method, btnConfirmar.dataset.show);
-
-            })
-
-            const btnCancelar = document.getElementById('btnCancelarPedido');
-            btnCancelar.addEventListener('click', ()=>{
-                AlterarRota(btnCancelar.dataset.route, 'order-overlay', btnCancelar.dataset.method, btnCancelar.dataset.show);
-            })
-
-            function AlterarRota(rota, divId, method, showReasonCancellatio) {
-                const methodInput = document.querySelector('input[name="_method"]');
-                methodInput.value = method;
-                document.getElementById('formUpdate').action=rota;
-                console.log(showReasonCancellatio);
-
-                const reasonDiv = document.getElementById('divReasonCancellation');
-                const show = showReasonCancellatio === 'true';
-
-                reasonDiv.classList.toggle('hidden', !show);
-
-
-                showOrderDetails(divId)
-            }
-
 
         </script>
     @endsection

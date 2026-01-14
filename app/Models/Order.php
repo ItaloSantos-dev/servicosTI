@@ -47,11 +47,16 @@ class Order extends Model
 
     ];
 
+    public  function payment ()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     public function ratingColor(){
-        if($this->rating<4){
+        if($this->rating<2){
             return "red";
         }
-        else if($this->rating<7){
+        else if($this->rating<4){
             return "yellow";
         }
         else{

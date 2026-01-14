@@ -87,9 +87,6 @@
                                      class="hidden minimumAmountCupon">
                                 </div>
                             @endforeach
-
-
-
                         </div>
 
                         <div class="flex flex-col gap-2">
@@ -113,6 +110,9 @@
                                 id="address"
                             ></textarea>
                         </div>
+
+
+
 
 
                         <div class="flex justify-center items-center gap-4 mt-4">
@@ -190,20 +190,20 @@
                 document.getElementById('discount_cupon_id').value=cupon[1];
                 document.getElementById('discount_amoun').textContent=cupon[2] + "% de desconto";
                 document.getElementById('valueOrder'). innerText = "Preço R$ " + (valueOrder - (cupon[2]/100)) ;
-
-
             }
             else{
                 document.getElementById('discount_amoun').textContent="Cupom para compras a partir de  R$" + cupon[0];
             }
         }
         else{
-            console.log('não tem o cupon');
+            document.getElementById('discount_amoun').textContent="Cupom inválido";
         }
 
     }
 
+
     var valueOrder =0;
+
 
 
     function ChangeValue(id){
